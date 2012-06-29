@@ -512,10 +512,10 @@ var Gauge = function( config) {
 
 	// draws the highlight colors
 	function drawHighlights() {
-		var 
-			r1 = max / 100 * 81,
-			r2 = r1 - max / 100 * 15
-		;
+		ctx.save();
+
+		var r1 = max / 100 * 81;
+		var r2 = r1 - max / 100 * 15;
 
 		for (var i = 0, s = config.highlights.length; i < s; i++) {
 			var
@@ -525,14 +525,12 @@ var Gauge = function( config) {
 				ea = radians( 45 + (hlt.to - config.minValue) / vd)
 			;
 			
-			ctx.save();
 			ctx.beginPath();
 	
 			ctx.rotate( radians( 90));
 			ctx.arc( 0, 0, r1, sa, ea, false);
 			ctx.restore();
 	
-			ctx.save();
 			var
 				ps = rpoint( r2, sa),
 				pe = rpoint( r1, sa)
@@ -557,12 +555,13 @@ var Gauge = function( config) {
 			ctx.beginPath();
 			ctx.rotate( radians( 90));
 			ctx.arc( 0, 0, r2, sa - 0.2, ea + 0.2, false);
-
+			ctx.restore();
+	
 			ctx.closePath();
 	
 			ctx.fillStyle = config.colors.plate;
 			ctx.fill();
-			ctx.restore();
+			ctx.save();
 		}
 	};
 
